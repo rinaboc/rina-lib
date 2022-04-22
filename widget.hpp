@@ -22,7 +22,6 @@ public:
     virtual bool is_over(int, int);
     virtual void logic(genv::event&){}
     bool is_in_focus(){return _in_focus;}
-    virtual std::string out_value(){return "";}
 
 };
 

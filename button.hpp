@@ -8,10 +8,7 @@ class Button : public Widget
 protected:
     bool _press;
 public:
-    Button(Window * w, int x, int y, int sizex, int sizey, std::string title) : Widget(w, x, y, sizex, sizey, title)
-    {
-        _press = false;
-    }
+    Button(Window * w, int x, int y, int sizex, int sizey, std::string title) : Widget(w, x, y, sizex, sizey, title), _press(false){}
     void toggle_press(){_press = !_press;}
     int press_logic(){return _press;};
     void draw() override;
@@ -25,11 +22,7 @@ protected:
     int _state;
     Spinbox * _parent;
 public:
-    Arrowbutton(Window * w, int x, int y, int sizex, int sizey, Spinbox * parent) : Button(w, x, y, sizex, sizey, "")
-    {
-        _state = 0;
-        _parent = parent;
-    }
+    Arrowbutton(Window * w, int x, int y, int sizex, int sizey, Spinbox * parent) : Button(w, x, y, sizex, sizey, ""), _state(0), _parent(parent){}
 
     void draw() override;
     bool is_over(int, int) override;
@@ -46,10 +39,8 @@ protected:
     int _toplimit;
     int _bottomlimit;
 public:
-    Scrollbutton(Window * w, int x, int y, int sizex, int sizey, Listbox * parent) : Button(w, x, y, sizex, sizey, "")
+    Scrollbutton(Window * w, int x, int y, int sizex, int sizey, Listbox * parent) : Button(w, x, y, sizex, sizey, ""), _gy(0), _parent(parent), _toplimit(0), _bottomlimit(0)
     {
-        _gy = 0;
-        _parent = parent;
         set_limits();
     }
 

@@ -25,7 +25,7 @@ public:
     int get_linspace(){return _linspace;}
     int get_contour(){return _contour;}
     void change_scrollvalue(int v){_scrollvalue = v;}
-    std::string out_value() override {return _items[_selected];}
+    std::string out_value() {return _items[_selected];}
 
 };
 

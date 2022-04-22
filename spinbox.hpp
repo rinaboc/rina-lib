@@ -14,12 +14,8 @@ protected:
     const int _controlwidth = 20;
     Arrowbutton * _control;
 public:
-    Spinbox(Window * w, int x, int y, int sizex, int sizey, std::string title, int min, int max) : Widget(w, x, y, sizex, sizey, title)
+    Spinbox(Window * w, int x, int y, int sizex, int sizey, std::string title, int minimum, int maximum) : Widget(w, x, y, sizex, sizey, title), _min(minimum), _max(maximum), _value(minimum), _text(std::to_string(minimum))
     {
-        _min = min;
-        _max = max;
-        _value = min;
-        _text = std::to_string(min);
         _control = new Arrowbutton(w, _x+_sizex-_controlwidth, _y, _controlwidth/2, _controlwidth/2, this);
     }
 
@@ -27,7 +23,7 @@ public:
     void change_value(int);
     void logic(genv::event&) override;
     void check_value();
-    std::string out_value() override {return _text;}
+    int out_value() {return _value;}
 
 };
 

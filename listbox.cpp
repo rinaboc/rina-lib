@@ -3,13 +3,8 @@
 
 using namespace genv;
 
-Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string title, std::vector<std::string> items) : Widget(w, x, y, sizex, sizey, title)
+Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string title, std::vector<std::string> items) : Widget(w, x, y, sizex, sizey, title), _items(items), _selected(0), _scrollvalue(0), _linspace(sizey / items.size())
 {
-    _items = items;
-    _selected = 0;
-    _scrollvalue = 0;
-    _linspace = (sizey / items.size());
-
     if(_lineheight * int(items.size()) > sizey)
     {
         _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, sizey/(sizey/_lineheight), this);

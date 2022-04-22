@@ -48,7 +48,7 @@ public:
     {
         if(widget3->is_in_focus())
         {
-            std::ofstream f("a.log");
+            std::ofstream f("output.log");
             f << widget1->out_value() << " " << widget2->out_value() << std::endl;
             f << widget4->out_value() << " " << widget5->out_value();
             f.close();
