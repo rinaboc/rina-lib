@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\arrowbtn.cpp
+	"button.hpp"
+	"spinbox.hpp"
+	<iostream>
+
+1650621655 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\button.hpp
+	"widget.hpp"
+
+1650621655 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\widget.hpp
+	"graphics.hpp"
+	<string>
+
+1649532178 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\include\graphics.hpp
+	<string>
+	<vector>
+
+1650621739 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\spinbox.hpp
+	"graphics.hpp"
+	"widget.hpp"
+	"button.hpp"
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\button.cpp
+	"button.hpp"
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\listbox.cpp
+	"listbox.hpp"
+	<iostream>
+
+1650621739 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\listbox.hpp
+	"button.hpp"
+	"widget.hpp"
+
+1650622059 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\main.cpp
+	"graphics.hpp"
+	"listbox.hpp"
+	"spinbox.hpp"
+	"widget.hpp"
+	"window.hpp"
+	<fstream>
+
+1650621739 c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\window.hpp
+	"widget.hpp"
+	<vector>
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\scrollbtn.cpp
+	"button.hpp"
+	"listbox.hpp"
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\spinbox.cpp
+	"spinbox.hpp"
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\widget.cpp
+	"widget.hpp"
+	"window.hpp"
+	<iostream>
+
+1650621332 source:c:\ppke\bevprog-ii\beadandok\graphicslib64_0412-minta másolata\window.cpp
+	"window.hpp"
+	"graphics.hpp"
+	"widget.hpp"
+	<iostream>
+
