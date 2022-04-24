@@ -1,5 +1,7 @@
 #include "listbox.hpp"
+#include "graphics.hpp"
 #include <iostream>
+using namespace std;
 
 using namespace genv;
 
@@ -7,7 +9,8 @@ Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string tit
 {
     if(_lineheight * int(items.size()) > sizey)
     {
-        _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, sizey/(sizey/_lineheight), this);
+        _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, _scrollwidth + ((_sizey-2*_contour)*2)/items.size(), this);
+        cout << ((_sizey-2*_contour)*2)/items.size() << endl;
     }
     else
         _scrollbox = nullptr;
@@ -18,22 +21,18 @@ void Listbox::draw()
 {
     title_draw();
 
+    if(_in_focus)
+    {
+        gout << color(240,240,255)
+             << move_to(_x-_selection_line, _y-_selection_line)
+             << box(_sizex+2*_selection_line, _sizey+2*_selection_line);
+    }
+
     gout << move_to(_x, _y)
          << color(220, 220, 255)
          << box(_sizex, _sizey);
 
-
-    if(_in_focus)
-    {
-        gout << color(240,240,255)
-             << move_to(_x-1, _y-1) << line(_sizex+2, 0)
-             << line(0, _sizey+2) << line(-_sizex-2, 0)
-             << line_to(_x-1, _y-1);
-        if(_scrollbox != nullptr)
-             gout << move_to(_x+_sizex-_scrollwidth-1, _y) << line(0, _sizey);
-    }
-
-    // elem kijeloles
+    // elem kijeloles es hatter
     for (int i = _scrollvalue; i < int(_items.size()); ++i) {
         if(_y+ (i+1-_scrollvalue)*_lineheight < _y+_sizey)
         {
@@ -54,8 +53,16 @@ void Listbox::draw()
             i = _items.size();
     }
 
+    // csuszka hatter
     if(_scrollbox != nullptr)
     {
+        if(_in_focus)
+        {
+            gout << color(240,240,255)
+                 << move_to(_x+_sizex-_scrollwidth-_selection_line, _y)
+                 << box(_selection_line*2, _sizey);
+        }
+
         gout << move_to(_x+_sizex-_scrollwidth, _y)
              << color(140, 140, 255)
              << box(_scrollwidth, _sizey);
@@ -64,17 +71,20 @@ void Listbox::draw()
 
 void Listbox::logic(event& ev)
 {
+    // gorgetes es huzas
     if(_scrollbox != nullptr && (ev.button == btn_wheeldown || ev.button == btn_wheelup))
     {
         _scrollbox->logic(ev);
-        _scrollvalue = (_scrollbox->get_y()-_y+2*_contour)/_linspace;
+        _scrollvalue = (_scrollbox->get_y()-_y-_contour)/_linspace;
+        cout << _linspace << " " << _scrollvalue << endl;
     }
     else if(_scrollbox != nullptr && _scrollbox->press_logic())
     {
-        _scrollvalue = (_scrollbox->get_y()-_y+2*_contour)/_linspace;
+        _scrollvalue = (_scrollbox->get_y()-_y)/_linspace;
     }
 
 
+    // elem kijeloles
     if(ev.button == btn_left && ev.pos_x > _x && ev.pos_x < _x+_sizex)
     {
         int i = 0;

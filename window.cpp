@@ -1,7 +1,6 @@
 #include "window.hpp"
 #include "graphics.hpp"
 #include "widget.hpp"
-#include <iostream>
 
 using namespace genv;
 
@@ -26,6 +25,7 @@ void Window::event_loop()
     {
         gout << move_to(0,0) << color(200, 200, 255) << box(600,600);
 
+        // kijeloles
         if(ev.button == btn_left)
         {
             bool found = false;
@@ -37,12 +37,16 @@ void Window::event_loop()
                     found = true;
                 }
             }
+
+            // nem widgetre kattintas
             if(!found && obj_in_focus != nullptr)
             {
                 obj_in_focus->toggle_focus();
                 obj_in_focus = nullptr;
             }
         }
+
+        // egyeb esemenyek
         if(obj_in_focus != nullptr && (ev.keycode > 0 || ev.type == ev_mouse))
         {
             obj_in_focus->logic(ev);
@@ -54,6 +58,5 @@ void Window::event_loop()
         gout << refresh;
 
         output_data();
-
     }
 }

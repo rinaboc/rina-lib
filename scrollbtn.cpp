@@ -17,11 +17,8 @@ bool Scrollbutton::is_over(int ex, int ey)
         _gy = ey - _y;
         return true;
     }
-    else
-    {
-        _press = false;
-    }
 
+    _press = false;
     return false;
 }
 
@@ -46,14 +43,13 @@ void Scrollbutton::logic(event& ev)
 
     // lista eltolasa
     if(_in_focus && (_press || ev.button == btn_wheeldown || ev.button == btn_wheelup))
-            _parent->change_scrollvalue((_y-_parent->get_y()+2*_parent->get_contour())/_parent->get_linspace());
+            _parent->change_scrollvalue((_y-_parent->get_y()-_parent->get_contour())/_parent->get_linspace());
 
 }
 
 void Scrollbutton::draw()
 {
-    gout << color(80, 80, 120);
-
-    gout << move_to(_x, _y)
+    gout << color(80, 80, 120)
+         << move_to(_x, _y)
          << box(_sizex, _sizey);
 }

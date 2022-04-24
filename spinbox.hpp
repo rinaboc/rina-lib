@@ -16,7 +16,7 @@ protected:
 public:
     Spinbox(Window * w, int x, int y, int sizex, int sizey, std::string title, int minimum, int maximum) : Widget(w, x, y, sizex, sizey, title), _min(minimum), _max(maximum), _value(minimum), _text(std::to_string(minimum))
     {
-        _control = new Arrowbutton(w, _x+_sizex-_controlwidth, _y, _controlwidth/2, _controlwidth/2, this);
+        _control = new Arrowbutton(w, _x+_sizex-_controlwidth, _y+(_sizey-_controlwidth)/2, _controlwidth/2, _controlwidth/2, this);
     }
 
     void draw() override;

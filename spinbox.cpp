@@ -47,7 +47,7 @@ void Spinbox::draw()
     if(_in_focus)
     {
         gout << color(240,240,255)
-             << move_to(_x-1, _y-1) << box(_sizex+2, _sizey+2);
+             << move_to(_x-_selection_line, _y-_selection_line) << box(_sizex+2*_selection_line, _sizey+2*_selection_line);
     }
     else
     {
@@ -61,6 +61,4 @@ void Spinbox::draw()
         << color(80, 80, 120)
         << move_to(_x+(_sizex-_controlwidth-gout.twidth(_text))/2, _y+_sizey/2+gout.cdescent())
         << text(_text);
-
-    _control->draw();
 }

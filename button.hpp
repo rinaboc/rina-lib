@@ -9,9 +9,11 @@ protected:
     bool _press;
 public:
     Button(Window * w, int x, int y, int sizex, int sizey, std::string title) : Widget(w, x, y, sizex, sizey, title), _press(false){}
+
     void toggle_press(){_press = !_press;}
     int press_logic(){return _press;};
     void draw() override;
+    void logic(genv::event&) override;
 };
 
 class Spinbox;
@@ -48,7 +50,6 @@ public:
     void draw() override;
     bool is_over(int, int) override;
     void logic(genv::event&) override;
-    int get_y(){return _y;}
 };
 
 #endif // BUTTON_HPP

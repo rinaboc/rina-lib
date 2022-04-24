@@ -20,7 +20,6 @@ public:
 
     void draw() override;
     void logic(genv::event&) override;
-    int get_y(){return _y;}
     int get_height(){return _sizey;}
     int get_linspace(){return _linspace;}
     int get_contour(){return _contour;}
