@@ -1,7 +1,5 @@
 #include "listbox.hpp"
 #include "graphics.hpp"
-#include <iostream>
-using namespace std;
 
 using namespace genv;
 
@@ -10,11 +8,20 @@ Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string tit
     if(_lineheight * int(items.size()) > sizey)
     {
         _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, _scrollwidth + ((_sizey-2*_contour)*2)/items.size(), this);
-        cout << ((_sizey-2*_contour)*2)/items.size() << endl;
     }
     else
         _scrollbox = nullptr;
 
+}
+
+void Listbox::delete_element(std::string element)
+{
+    std::vector<std::string> new_list;
+    for(std::string& s: _items)
+    {
+        if(s != element) new_list.push_back(s);
+    }
+    _items = new_list;
 }
 
 void Listbox::draw()
@@ -46,7 +53,7 @@ void Listbox::draw()
             if(_in_focus && _selected == i) gout << color(80, 80, 120);
             else gout << color(140, 140, 255);
 
-            gout << move_to(_x+gout.cascent(), _y+(i-_scrollvalue)*_lineheight+gout.cascent()+(_lineheight-gout.cascent())/2);
+            gout << move_to(_x+gout.cascent(), _y+(i-_scrollvalue)*_lineheight-(_lineheight-gout.cascent())/2+gout.cdescent()*2);
             gout << text(_items[i]);
         }
         else
@@ -69,6 +76,12 @@ void Listbox::draw()
     }
 }
 
+std::string Listbox::out_value()
+{
+    if(_selected < _items.size()) return _items[_selected];
+    else return "";
+}
+
 void Listbox::logic(event& ev)
 {
     // gorgetes es huzas
@@ -76,7 +89,6 @@ void Listbox::logic(event& ev)
     {
         _scrollbox->logic(ev);
         _scrollvalue = (_scrollbox->get_y()-_y-_contour)/_linspace;
-        cout << _linspace << " " << _scrollvalue << endl;
     }
     else if(_scrollbox != nullptr && _scrollbox->press_logic())
     {

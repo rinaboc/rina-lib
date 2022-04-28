@@ -16,6 +16,9 @@ protected:
 public:
     Spinbox(Window * w, int x, int y, int sizex, int sizey, std::string title, int minimum, int maximum) : Widget(w, x, y, sizex, sizey, title), _min(minimum), _max(maximum), _value(minimum), _text(std::to_string(minimum))
     {
+        if(genv::gout.cascent()+genv::gout.cdescent() > sizey) // ha tul nagy a font
+            _sizey += genv::gout.cascent()+genv::gout.cdescent()-sizey;
+
         _control = new Arrowbutton(w, _x+_sizex-_controlwidth, _y+(_sizey-_controlwidth)/2, _controlwidth/2, _controlwidth/2, this);
     }
 

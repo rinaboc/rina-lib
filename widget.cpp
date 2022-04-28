@@ -16,6 +16,6 @@ bool Widget::is_over(int ex, int ey)
 void Widget::title_draw()
 {
     genv::gout << genv::color(140, 140, 255)
-         << genv::move_to(_x, _y-genv::gout.cascent()/2-_selection_line)
+         << genv::move_to(_x, _y-genv::gout.cascent()-genv::gout.cdescent()*2-_selection_line)
          << genv::text(_title);
 }

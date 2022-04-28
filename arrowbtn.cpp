@@ -1,6 +1,5 @@
 #include "button.hpp"
 #include "spinbox.hpp"
-#include <iostream>
 
 using namespace genv;
 

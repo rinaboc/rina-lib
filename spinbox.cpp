@@ -59,6 +59,6 @@ void Spinbox::draw()
     // ertek kiiras
     gout
         << color(80, 80, 120)
-        << move_to(_x+(_sizex-_controlwidth-gout.twidth(_text))/2, _y+_sizey/2+gout.cdescent())
+        << move_to(_x+(_sizex-_controlwidth-gout.twidth(_text))/2, _y+(_sizey-(gout.cdescent()+gout.cascent()))/2)
         << text(_text);
 }

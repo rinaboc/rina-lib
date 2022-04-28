@@ -24,6 +24,7 @@ public:
     virtual void logic(genv::event&) = 0;
     bool is_in_focus(){return _in_focus;}
     int get_y(){return _y;}
+    std::string get_title(){return _title;}
 
 };
 

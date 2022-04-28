@@ -57,6 +57,7 @@ void Window::event_loop()
 
         gout << refresh;
 
+        menu_logic();
         output_data();
     }
 }

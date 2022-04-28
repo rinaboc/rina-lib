@@ -33,6 +33,16 @@ public:
 
 class Listbox;
 
+class Mixbutton_left : public Button
+{
+protected:
+    Listbox * _parent;
+    Listbox * _destination;
+public:
+    Mixbutton_left(Window * w, int x, int y, int sizex, int sizey, Listbox * parent, Listbox * destination) : Button(w, x, y, sizex, sizey, "<"), _parent(parent), _destination(destination){}
+
+};
+
 class Scrollbutton : public Button
 {
 protected:

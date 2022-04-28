@@ -18,6 +18,7 @@ public:
     void event_loop();
     void select_widget(Widget * &);
     virtual void output_data() = 0;
+    virtual void menu_logic() = 0;
 };
 
 #endif // WINDOW_HPP
