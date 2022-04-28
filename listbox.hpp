@@ -27,6 +27,7 @@ public:
     std::string out_value();
     void delete_element(std::string);
     void add_new(std::string s){if(s != "") _items.push_back(s);}
+    void check_list();
 
 };
 

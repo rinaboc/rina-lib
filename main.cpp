@@ -21,8 +21,8 @@ struct Screen : public Window
 protected:
     Listbox * widget1;
     Listbox * widget2;
-    Button * jobbwidget;
-    Button * balwidget;
+    Mixbutton * jobbwidget;
+    Mixbutton * balwidget;
 
 public:
     Screen()
@@ -37,27 +37,11 @@ public:
             items2.push_back("jobbelem "+std::to_string(i));
 
 
-        widget1 = new Listbox(this, 50, 40, 200, 150, "elem kivalaszto 1", items);
-        widget2 = new Listbox(this, 350, 40, 200, 150, "elem kivalaszto 2", items2);
+        widget1 = new Listbox(this, 50, 40, 200, 200, "elem kivalaszto 1", items);
+        widget2 = new Listbox(this, 340, 40, 200, 200, "elem kivalaszto 2", items2);
 
-        jobbwidget = new Button(this, 260, 40, 30,30, ">");
-        balwidget = new Button(this, 300, 40, 30,30, "<");
-    }
-
-    void menu_logic() override
-    {
-        if(jobbwidget->press_logic())
-        {
-            widget2->add_new(widget1->out_value());
-            widget1->delete_element(widget1->out_value());
-            jobbwidget->toggle_press();
-        }
-        if(balwidget->press_logic())
-        {
-            widget1->add_new(widget2->out_value());
-            widget2->delete_element(widget2->out_value());
-            balwidget->toggle_press();
-        }
+        jobbwidget = new Mixbutton(this, 260, 40, 30,30, ">", widget1, widget2);
+        balwidget = new Mixbutton(this, 300, 40, 30,30, "<", widget2, widget1);
     }
 
     void output_data() override
