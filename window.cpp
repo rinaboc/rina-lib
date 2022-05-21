@@ -1,6 +1,4 @@
 #include "window.hpp"
-#include "graphics.hpp"
-#include "widget.hpp"
 
 using namespace genv;
 
@@ -14,16 +12,14 @@ void Window::select_widget(Widget *&w)
 
 void Window::event_loop()
 {
-    for(Widget* w: _widgets)
-    {
-        w->draw();
-    }
-    gout << refresh;
+    setup();
 
     event ev;
     while(gin >> ev && ev.keycode != key_escape)
     {
-        gout << move_to(0,0) << color(200, 200, 255) << box(600,600);
+        gout << color(200, 200, 255)
+         << move_to(0,0)
+         << box(XX, YY);
 
         // kijeloles
         if(ev.button == btn_left)
@@ -56,7 +52,30 @@ void Window::event_loop()
             w->draw();
 
         gout << refresh;
-
-        output_data();
     }
+
+}
+
+void Window::setup()
+{
+    gout.open(XX,YY);
+    gout << font("LiberationSans-Regular.ttf", basic_font_size);
+    gout << move_to(0,0) << color(200, 200, 255) << box(XX,YY);
+
+    for(Widget* w: _widgets)
+            w->draw();
+
+    gout << refresh;
+}
+
+void Window::delete_widget(Widget* w)
+{
+    std::vector<Widget*> _new_widgets;
+    for(Widget* &widget: _widgets)
+    {
+        if(widget != w) _new_widgets.push_back(widget);
+    }
+    if(obj_in_focus == w) obj_in_focus = nullptr;
+
+    _widgets = _new_widgets;
 }

@@ -57,9 +57,14 @@
 		<Unit filename="listbox.cpp" />
 		<Unit filename="listbox.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="mixbutton.cpp" />
 		<Unit filename="scrollbtn.cpp" />
 		<Unit filename="spinbox.cpp" />
 		<Unit filename="spinbox.hpp" />
+		<Unit filename="statictext.cpp" />
+		<Unit filename="statictext.hpp" />
+		<Unit filename="textbox.cpp" />
+		<Unit filename="textbox.hpp" />
 		<Unit filename="widget.cpp" />
 		<Unit filename="widget.hpp" />
 		<Unit filename="window.cpp" />

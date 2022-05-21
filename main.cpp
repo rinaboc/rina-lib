@@ -1,70 +1,34 @@
-#include "graphics.hpp"
 #include "listbox.hpp"
 #include "spinbox.hpp"
 #include "widget.hpp"
 #include "window.hpp"
-#include <fstream>
+#include "statictext.hpp"
+#include "textbox.hpp"
 
-using namespace genv;
-using namespace std;
-
-void setup()
-{
-    gout.open(600,600);
-    gout << font("LiberationSans-Regular.ttf", 20);
-    gout << move_to(0,0) << color(200, 200, 255) << box(600,600);
-    gout << refresh;
-}
-
-struct Screen : public Window
+struct Test_app : public Window
 {
 protected:
-    Spinbox * widget1;
-    Spinbox * widget2;
-    Button * widget3;
-    Listbox * widget4;
-    Listbox * widget5;
+    Listbox* lb;
+    Spinbox* sb;
+    StaticText* st;
+    Textbox* tb;
+    FButton* fb;
 
 public:
-    Screen()
+    Test_app()
     {
-        widget1 = new Spinbox(this, 30, 40, 150, 20, "szambeallito 1", -100, 100);
-        widget2 = new Spinbox(this, 30, 90, 180, 20, "szambeallito 2", 20, 40);
-        widget3 = new Button(this, 30, 150, 60, 20, "Gomb");
+        lb = new Listbox(this, 50, 50, 150, 150, "Listbox", {});
+        sb = new Spinbox(this, 250, 50, 100, 20, "Spinbox", 10,100);
+        st = new StaticText(this, 250, 300, 150, 20, "Static Text", 30);
+        tb = new Textbox(this, 250, 150, 150, 40, "Textbox", nullptr);
 
-        // teszt lista generalas
-        std::vector<std::string> items;
-        for(int i = 1; i < 5; i++)
-            items.push_back("elem "+std::to_string(i));
-
-        std::vector<std::string> items2;
-        for(int i = 1; i < 20; i++)
-            items2.push_back("elem "+std::to_string(i));
-
-
-        widget4 = new Listbox(this, 300, 40, 200, 100, "elem kivalaszto 1", items);
-        widget5 = new Listbox(this, 300, 200, 150, 300, "elem kivalaszto 2", items2);
-    }
-
-    void output_data() override
-    {
-        if(widget3->press_logic())
-        {
-            std::ofstream f("output.log");
-            f << widget1->out_value() << " " << widget2->out_value() << std::endl;
-            f << widget4->out_value() << " " << widget5->out_value();
-            f.close();
-
-            widget3->toggle_press();
-        }
     }
 };
 
 
 int main()
 {
-    setup();
-    Screen s;
-    s.event_loop();
+    Test_app ta;
+    ta.event_loop();
     return 0;
 }

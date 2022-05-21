@@ -47,7 +47,7 @@ void Scrollbutton::logic(event& ev)
 
 }
 
-void Scrollbutton::draw()
+void Scrollbutton::draw() const
 {
     gout << color(80, 80, 120)
          << move_to(_x, _y)

@@ -1,6 +1,5 @@
 #include "button.hpp"
 #include "spinbox.hpp"
-#include <iostream>
 
 using namespace genv;
 
@@ -43,7 +42,7 @@ void Arrowbutton::logic(event& ev)
 
 }
 
-void Arrowbutton::draw()
+void Arrowbutton::draw() const
 {
     // gomb hatter
     if(!_in_focus || _state == 0)
