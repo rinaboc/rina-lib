@@ -1,5 +1,7 @@
 #include "listbox.hpp"
 #include "graphics.hpp"
+#include <cmath>
+#include <iostream>
 
 using namespace genv;
 
@@ -8,15 +10,15 @@ Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string tit
     if(_lineheight * int(items.size()) > sizey)
     {
         _linspace = sizey / items.size();
-        _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, _scrollwidth + ((_sizey-2*_contour)*2)/items.size(), this);
+        _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, sizey - _linspace * (abs(sizey - _lineheight* (int(items.size())+1))/_lineheight)-2*_contour, this);
+        std::cout << abs(sizey - _lineheight* (int(items.size())+1))/_lineheight << std::endl;
     }
     else
     {
         _linspace = 0;
-        _scrollbox = nullptr;
+        _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, sizey, this);
+        _scrollbox->toggle_visibility();
     }
-
-
 }
 
 void Listbox::delete_element(std::string element)
@@ -27,7 +29,18 @@ void Listbox::delete_element(std::string element)
         if(s != element) new_list.push_back(s);
     }
     _items = new_list;
+
+    check_list();
+    _scrollbox->check_limits();
 }
+
+void Listbox::add_new(std::string s)
+{
+    if(s != "") _items.push_back(s);
+    check_list();
+    _scrollbox->check_limits();
+}
+
 
 void Listbox::draw() const
 {
@@ -66,7 +79,7 @@ void Listbox::draw() const
     }
 
     // csuszka hatter
-    if(_scrollbox != nullptr)
+    if(_scrollbox->is_visible())
     {
         if(_in_focus)
         {
@@ -81,7 +94,19 @@ void Listbox::draw() const
     }
 }
 
-std::string Listbox::out_value()
+void Listbox::check_list()
+{
+    if(_lineheight * int(_items.size()) > _sizey)
+    {
+        _linspace = _sizey / _items.size();
+        _scrollbox->change_sizey(_sizey - _linspace * (abs(_sizey - _lineheight* (int(_items.size())+1))/_lineheight)-2*_contour);
+
+        if(!_scrollbox->is_visible()) _scrollbox->toggle_visibility();
+    }
+    if(_lineheight * int(_items.size()) < _sizey && _scrollbox->is_visible()) _scrollbox->toggle_visibility();
+}
+
+std::string Listbox::out_value() const
 {
     if(_selected < int(_items.size())) return _items[_selected];
     else return "";
@@ -90,12 +115,12 @@ std::string Listbox::out_value()
 void Listbox::logic(event& ev)
 {
     // gorgetes es huzas
-    if(_scrollbox != nullptr && (ev.button == btn_wheeldown || ev.button == btn_wheelup))
+    if(_scrollbox->is_visible() && (ev.button == btn_wheeldown || ev.button == btn_wheelup))
     {
         _scrollbox->logic(ev);
         _scrollvalue = (_scrollbox->get_y()-_y-_contour)/_linspace;
     }
-    else if(_scrollbox != nullptr && _scrollbox->press_logic())
+    else if(_scrollbox->is_visible() && _scrollbox->press_logic())
     {
         _scrollvalue = (_scrollbox->get_y()-_y)/_linspace;
     }
@@ -111,5 +136,17 @@ void Listbox::logic(event& ev)
 
         if(i < int(_items.size()))
             _selected = i+_scrollvalue;
+    }
+
+    if(ev.keycode == key_down)
+    {
+        _selected++;
+        if(_selected > _items.size()-1) _selected = _items.size()-1;
+    }
+
+    if(ev.keycode == key_up)
+    {
+        _selected--;
+        if(_selected < 0) _selected = 0;
     }
 }

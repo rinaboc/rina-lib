@@ -9,6 +9,14 @@ void Scrollbutton::set_limits()
     _bottomlimit = _parent->get_y()+_parent->get_height()-_parent->get_contour();
 }
 
+void Scrollbutton::toggle_visibility()
+{
+    if(_visible) _w->delete_widget(this);
+    else _w->add_widget(this);
+
+    _visible = !_visible;
+}
+
 bool Scrollbutton::is_over(int ex, int ey)
 {
     if(ex > _x && ey > _y && ex < _x+_sizex && ey < _y+_sizey)
@@ -36,15 +44,20 @@ void Scrollbutton::logic(event& ev)
         _y += _parent->get_linspace();
 
     // mozgas limitalasa
-    if(_y+_sizey >= _bottomlimit)
-        _y = _bottomlimit-_sizey;
-    else if(_y <= _toplimit)
-        _y = _toplimit;
+    check_limits();
 
     // lista eltolasa
     if(_in_focus && (_press || ev.button == btn_wheeldown || ev.button == btn_wheelup))
             _parent->change_scrollvalue((_y-_parent->get_y()-_parent->get_contour())/_parent->get_linspace());
 
+}
+
+void Scrollbutton::check_limits()
+{
+    if(_y+_sizey >= _bottomlimit)
+        _y = _bottomlimit-_sizey;
+    else if(_y <= _toplimit)
+        _y = _toplimit;
 }
 
 void Scrollbutton::draw() const

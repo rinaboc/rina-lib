@@ -7,8 +7,6 @@
 
 using namespace genv;
 
-class Gameboard;
-
 class Button : public Widget
 {
 protected:
@@ -22,18 +20,15 @@ public:
     void logic(genv::event&) override;
 };
 
-class Game_tile : public Button
+class Checkbox : public Button
 {
 protected:
-    char _display;
-    Gameboard * _parent;
+    const int border = 3;
 public:
-    Game_tile(Window * w, int x, int y, int sizex, int sizey, Gameboard * parent) : Button(w, x, y, sizex, sizey, ""), _display(' '), _parent(parent) {}
+    Checkbox(Window * w, int x, int y, int sizex, int sizey) : Button(w, x, y, sizex, sizey, "") {}
 
     void draw() const override;
     void logic(genv::event&) override;
-    char get_char()const {return _display;}
-    void toggle_action();
 };
 
 class FButton : public Button
@@ -80,16 +75,22 @@ protected:
     Listbox * _parent;
     int _toplimit;
     int _bottomlimit;
+    bool _visible;
 public:
     Scrollbutton(Window * w, int x, int y, int sizex, int sizey, Listbox * parent) : Button(w, x, y, sizex, sizey, ""), _gy(0), _parent(parent), _toplimit(0), _bottomlimit(0)
     {
         set_limits();
+        _visible = true;
     }
 
     void set_limits();
+    void check_limits();
     void draw() const override;
     bool is_over(int, int) override;
     void logic(genv::event&) override;
+    void toggle_visibility();
+    void change_sizey(int newsizey) {_sizey = newsizey;}
+    bool is_visible()const {return _visible;}
 };
 
 class Mixbutton : public Button

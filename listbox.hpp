@@ -20,13 +20,13 @@ public:
 
     void draw() const override;
     void logic(genv::event&) override;
-    int get_height(){return _sizey;}
-    int get_linspace(){return _linspace;}
-    int get_contour(){return _contour;}
+    int get_height() const {return _sizey;}
+    int get_linspace() const {return _linspace;}
+    int get_contour() const {return _contour;}
     void change_scrollvalue(int v){_scrollvalue = v;}
-    std::string out_value();
+    std::string out_value() const;
     void delete_element(std::string);
-    void add_new(std::string s){if(s != "") _items.push_back(s);}
+    void add_new(std::string);
     void check_list();
 
 };
