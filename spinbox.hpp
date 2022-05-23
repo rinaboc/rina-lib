@@ -14,10 +14,14 @@ protected:
     const int _controlwidth = 20;
     Arrowbutton * _control;
 public:
-    Spinbox(Window * w, int x, int y, int sizex, int sizey, std::string title, int minimum, int maximum) : Widget(w, x, y, sizex, sizey, title), _min(minimum), _max(maximum), _value(minimum), _text(std::to_string(minimum))
+    Spinbox(Window * w, int x, int y, int sizex, std::string title, int minimum, int maximum, int start_value) : Widget(w, x, y, sizex, _controlwidth, title), _min(minimum), _max(maximum), _value(start_value)
     {
-        if(genv::gout.cascent()+genv::gout.cdescent() > sizey) // ha tul nagy a font
-            _sizey += genv::gout.cascent()+genv::gout.cdescent()-sizey;
+        _sizey = _controlwidth;
+        if(genv::gout.cascent()+genv::gout.cdescent() > _sizey) // ha tul nagy a font
+            _sizey += genv::gout.cascent()+genv::gout.cdescent()-_sizey;
+
+        check_value();
+        _text = std::to_string(_value);
 
         _control = new Arrowbutton(w, _x+_sizex-_controlwidth, _y+(_sizey-_controlwidth)/2, _controlwidth/2, _controlwidth/2, this);
     }

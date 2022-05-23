@@ -26,6 +26,7 @@ public:
     void change_scrollvalue(int v){_scrollvalue = v;}
     std::string out_value() const;
     void delete_element(std::string);
+    void delete_current_element();
     void add_new(std::string);
     void check_list();
 

@@ -1,7 +1,6 @@
 #include "listbox.hpp"
 #include "graphics.hpp"
 #include <cmath>
-#include <iostream>
 
 using namespace genv;
 
@@ -11,7 +10,6 @@ Listbox::Listbox(Window * w, int x, int y, int sizex, int sizey, std::string tit
     {
         _linspace = sizey / items.size();
         _scrollbox = new Scrollbutton(w, x+sizex-_scrollwidth+_contour, y+_contour, _scrollwidth-2*_contour, sizey - _linspace * (abs(sizey - _lineheight* (int(items.size())+1))/_lineheight)-2*_contour, this);
-        std::cout << abs(sizey - _lineheight* (int(items.size())+1))/_lineheight << std::endl;
     }
     else
     {
@@ -29,6 +27,21 @@ void Listbox::delete_element(std::string element)
         if(s != element) new_list.push_back(s);
     }
     _items = new_list;
+
+    check_list();
+    _scrollbox->check_limits();
+}
+
+void Listbox::delete_current_element()
+{
+    if(_items.size() == 0) return;
+
+    std::vector<std::string> new_list;
+    for(int i = 0; i < int(_items.size()); i++)
+        if(i != _selected) new_list.push_back(_items[i]);
+
+    _items = new_list;
+    _selected--;
 
     check_list();
     _scrollbox->check_limits();
@@ -142,11 +155,24 @@ void Listbox::logic(event& ev)
     {
         _selected++;
         if(_selected > _items.size()-1) _selected = _items.size()-1;
+
+        if(_lineheight * (_selected+1) > _sizey) 
+        {
+            _scrollbox->change_y(_linspace);
+            change_scrollvalue((_scrollbox->get_y()-_y-_contour)/_linspace);
+        }
     }
 
     if(ev.keycode == key_up)
     {
         _selected--;
         if(_selected < 0) _selected = 0;
+
+        
+        if(_selected == _scrollvalue-1)
+        {
+            _scrollbox->change_y(-_linspace);
+            change_scrollvalue((_scrollbox->get_y()-_y-_contour)/_linspace);
+        }
     }
 }

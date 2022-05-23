@@ -20,12 +20,12 @@ public:
     Test_app()
     {
         lb = new Listbox(this, 50, 50, 150, 100, "Listbox", {"alma", "szilva", "ananasz"});
-        sb = new Spinbox(this, 250, 50, 100, 20, "Spinbox", 10,100);
+        sb = new Spinbox(this, 250, 50, 100, "Spinbox", 10,100, 50);
         st = new StaticText(this, 250, 300, 150, 20, "Static Text", 30);
-        fb = new FButton(this, 430, 150, 100, 40, "hozzaad", [=](){lb->add_new(tb->get_text()); tb->clear_text();});
+        fb = new FButton(this, 430, 150, 100, 40, "hozzáad", [=](){lb->add_new(tb->get_text()); tb->clear_text();});
         tb = new Textbox(this, 250, 150, 150, 40, "Textbox", fb);
         cb = new Checkbox(this, 250, 80, 30, 30);
-        fb2 = new FButton(this, 50,200, 100, 40, "torol", [=](){lb->delete_element(lb->out_value());});
+        fb2 = new FButton(this, 50,200, 100, 40, "töröl", [=](){lb->delete_current_element();});
     }
 };
 

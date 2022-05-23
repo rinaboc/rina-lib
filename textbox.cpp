@@ -1,6 +1,5 @@
 #include "textbox.hpp"
 #include "graphics.hpp"
-#include <iostream>
 using namespace genv;
 using namespace std;
 
@@ -62,8 +61,8 @@ void Textbox::draw() const
 
 void Textbox::check_cursor()
 {
-    if(_cursor < 0) _cursor = 0;
-    if(_cursor > int(_text.length())) _cursor = _text.length();
+    if(_cursor < 0) _cursor = -1;
+    if(_cursor > int(_text.length())-1) _cursor = _text.length()-1;
 }
 
 bool Textbox::move_cursor(event& ev)
@@ -175,7 +174,4 @@ void Textbox::remove_text()
     {
         _cursor = 0;
     }
-
-
-    cout << _cursor << endl;
 }

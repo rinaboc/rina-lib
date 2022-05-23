@@ -42,11 +42,12 @@ public:
     {
         if(ev.button == btn_left)
             _press = true;
-        else if(ev.button == -btn_left && _press == true)
+        else if(ev.button == -btn_left && _press == true && is_over(ev.pos_x, ev.pos_y))
         {
             _press = false;
             action();
         }
+        else if(!is_over(ev.pos_x, ev.pos_y)) _press = false;
     }
     virtual void action(){_f();}
 };
@@ -91,6 +92,7 @@ public:
     void toggle_visibility();
     void change_sizey(int newsizey) {_sizey = newsizey;}
     bool is_visible()const {return _visible;}
+    void change_y(int d){_y += d; check_limits();}
 };
 
 class Mixbutton : public Button
