@@ -49,9 +49,12 @@ void Listbox::delete_current_element()
 
 void Listbox::add_new(std::string s)
 {
-    if(s != "") _items.push_back(s);
-    check_list();
-    _scrollbox->check_limits();
+    if(s.length())
+    {
+        _items.push_back(s);
+        check_list();
+        _scrollbox->check_limits();
+    }
 }
 
 
@@ -121,7 +124,7 @@ void Listbox::check_list()
 
 std::string Listbox::out_value() const
 {
-    if(_selected < int(_items.size())) return _items[_selected];
+    if(_selected < int(_items.size()) && _selected >= 0) return _items[_selected];
     else return "";
 }
 
@@ -154,7 +157,7 @@ void Listbox::logic(event& ev)
     if(ev.keycode == key_down)
     {
         _selected++;
-        if(_selected > _items.size()-1) _selected = _items.size()-1;
+        if(_selected > int(_items.size())-1) _selected = _items.size()-1;
 
         if(_lineheight * (_selected+1) > _sizey) 
         {

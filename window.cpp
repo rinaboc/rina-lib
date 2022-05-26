@@ -56,7 +56,7 @@ void Window::event_loop()
 
 }
 
-void Window::setup()
+void Window::setup() const
 {
     gout.open(XX,YY);
     gout << font("LiberationSans-Regular.ttf", basic_font_size);

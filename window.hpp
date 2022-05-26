@@ -15,7 +15,7 @@ public:
     void add_widget(Widget * w){_widgets.push_back(w);}
     void delete_widget(Widget*);
 
-    void setup();
+    void setup() const;
     void event_loop();
     void select_widget(Widget * &);
     int get_font_size()const {return basic_font_size;}

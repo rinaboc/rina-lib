@@ -1,4 +1,4 @@
-#ifndef STATICTEXT_HPP
+﻿#ifndef STATICTEXT_HPP
 #define STATICTEXT_HPP
 
 #include "widget.hpp"

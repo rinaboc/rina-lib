@@ -95,15 +95,4 @@ public:
     void change_y(int d){_y += d; check_limits();}
 };
 
-class Mixbutton : public Button
-{
-protected:
-    Listbox * _parent;
-    Listbox * _destination;
-public:
-    Mixbutton(Window * w, int x, int y, int sizex, int sizey, std::string arrow , Listbox * parent, Listbox * destination) : Button(w, x, y, sizex, sizey, arrow), _parent(parent), _destination(destination){}
-
-    void logic(genv::event&) override;
-};
-
 #endif // BUTTON_HPP

@@ -14,9 +14,8 @@ protected:
     const int _controlwidth = 20;
     Arrowbutton * _control;
 public:
-    Spinbox(Window * w, int x, int y, int sizex, std::string title, int minimum, int maximum, int start_value) : Widget(w, x, y, sizex, _controlwidth, title), _min(minimum), _max(maximum), _value(start_value)
+    Spinbox(Window * w, int x, int y, int sizex, std::string title, int minimum, int maximum, int start_value) : Widget(w, x, y, sizex, 20, title), _min(minimum), _max(maximum), _value(start_value)
     {
-        _sizey = _controlwidth;
         if(genv::gout.cascent()+genv::gout.cdescent() > _sizey) // ha tul nagy a font
             _sizey += genv::gout.cascent()+genv::gout.cdescent()-_sizey;
 
@@ -30,7 +29,7 @@ public:
     void change_value(int);
     void logic(genv::event&) override;
     void check_value();
-    int out_value() {return _value;}
+    int out_value() const {return _value;}
 
 };
 

@@ -54,10 +54,10 @@
 		<Unit filename="arrowbtn.cpp" />
 		<Unit filename="button.cpp" />
 		<Unit filename="button.hpp" />
+		<Unit filename="checkbox.cpp" />
 		<Unit filename="listbox.cpp" />
 		<Unit filename="listbox.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="mixbutton.cpp" />
 		<Unit filename="scrollbtn.cpp" />
 		<Unit filename="spinbox.cpp" />
 		<Unit filename="spinbox.hpp" />

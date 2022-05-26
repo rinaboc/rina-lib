@@ -1,5 +1,5 @@
 #include "textbox.hpp"
-#include "graphics.hpp"
+#include "widget.hpp"
 using namespace genv;
 using namespace std;
 
@@ -94,7 +94,7 @@ void Textbox::logic(event& ev)
 
     if(abs(ev.keycode) == key_lshift || abs(ev.keycode) == key_rshift)
     {
-        while(gin >> ev && ev.type != ev_key && !(abs(ev.keycode) != key_right) && !(abs(ev.keycode) != key_backspace) && (ev.keycode != -key_lshift || ev.keycode != -key_rshift)){}
+        while(gin >> ev && ev.type != ev_key && !(abs(ev.keycode) == key_right) && !(abs(ev.keycode) == key_backspace) && (ev.keycode != -key_lshift || ev.keycode != -key_rshift)){}
         string button = ev.keyutf8;
         add_text(button);
         return;
@@ -134,7 +134,7 @@ void Textbox::add_text(string s)
                     uj_szo += s;
 
             }
-            if(_cursor < _text.length())
+            if(_cursor < int(_text.length()))
                 _cursor++;
 
             uj_szo.pop_back();
@@ -147,10 +147,7 @@ void Textbox::add_text(string s)
     {
         _text.pop_back();
         _cursor = _text.length()-1;
-
-//        _size_x += gout.twidth(s);
     }
-//    cout << _text.length() << "\t" << s << endl;
 
 }
 
@@ -158,10 +155,8 @@ void Textbox::remove_text()
 {
     if(_text.length() > 0)
     {
-//        _size_x -= gout.twidth(string(1, _text[_text.length()-1]));
-
         string uj_szo;
-        for(int i = 0; i < _text.length(); i++)
+        for(int i = 0; i < int(_text.length()); i++)
         {
             if(i != _cursor) uj_szo += _text[i];
         }
